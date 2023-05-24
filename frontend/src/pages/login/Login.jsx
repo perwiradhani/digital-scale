@@ -51,8 +51,10 @@ export default function Form() {
                 <span>Enjoy the service</span>
 
                 <form id='form' className='flex flex-col' onSubmit={handleSubmit}>
-                    <input type="text" name='username' onChange={handleInput} value={loginInput.username} />
-                    <input type="password" name='password' onChange={handleInput} value={loginInput.password} />
+                    <span>Username</span>
+                    <input type="text" name='username' placeholder='Masukkan username' onChange={handleInput} value={loginInput.username} />
+                    <span>Password</span>
+                    <input type="password" name='password' placeholder='Masukkan password' onChange={handleInput} value={loginInput.password} />
                     {/* <Link to="/"> */}
                     <button className="loginButton">Login</button>
                     {/* </Link> */}
