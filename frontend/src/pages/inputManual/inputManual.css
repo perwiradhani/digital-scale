@@ -1,0 +1,74 @@
+.inputManual {
+    flex: 4;
+    padding: 20px;
+  }
+  
+  .inputManualTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .inputManualContainer {
+    display: flex;
+    margin-top: 20px;
+    margin-left: -20px;
+    margin-right: 400px;
+  }
+  
+  .inputManualUpdate {
+    flex: 2;
+    padding: 30px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    margin-left: 20px;
+  }
+  
+  .inputManualUpdateTitle{
+      font-size: 24px;
+      font-weight: 600;
+  }
+  
+  .inputManualUpdateForm{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+  }
+  
+  .inputManualUpdateItem{
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+  }
+  
+  .inputManualUpdateItem>label{
+      margin-bottom: 5px;
+      font-size: 16px;
+  }
+  
+  .inputManualUpdateInput{
+      border: none;
+      width: 250px;
+      height: 20px;
+      border-bottom: 1px solid gray;
+  }
+  
+  .inputManualUpdateRight{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+  
+  .inputManualUpdateIcon{
+      cursor: pointer;
+  }
+  
+  .inputManualUpdateButton{
+      border-radius: 10px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      background-color: rgb(219, 216, 14);
+      color: white;
+      font-weight: 600;
+  }
