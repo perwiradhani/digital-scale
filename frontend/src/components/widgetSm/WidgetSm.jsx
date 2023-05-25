@@ -1,59 +1,64 @@
 import "./widgetSm.css";
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect, useState } from 'react';
+import Tesseract from 'tesseract.js';
 
-export default function WidgetSm() {
-  let videoRef = useRef(null)
-  let photoRef = useRef(null)
+const CameraOCR = () => {
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [ocrResult, setOCRResult] = useState('');
 
-  const getUserCamera = () => {
-    navigator.mediaDevices.getUserMedia({
-      video:true
-    })
-    .then((stream) => {
-      let video = videoRef.current
-      video.srcObject = stream
-      video.play()
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-  }
-
-  const takePicture = () => {
-    let width = 600
-    let height = width / (16 / 9)
-    let photo = photoRef.current
-    let video = videoRef.current
-
-    photo.width = width
-    photo.height = height
-
-    let ctx = photo.getContext('2d')
-    ctx.drawImage(video, 0, 0, photo.width, photo.height)
-  }
-
-  const clearImage = () => {
-    let photo =photoRef.current
-    let ctx = photo.getContext('2d')
-    ctx.clearRect(0, 0, photo.width, photo.height)
-  }
-  
   useEffect(() => {
-    getUserCamera()
-  },[videoRef])
+    startCamera();
+
+    return () => {
+      stopCamera();
+    };
+  }, []);
+
+  const startCamera = async () => {
+    try {
+      if (videoRef.current) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoRef.current.srcObject = stream;
+      }
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+    }
+  };
+
+  const stopCamera = () => {
+    const stream = videoRef.current?.srcObject;
+    const tracks = stream?.getTracks();
+    
+    tracks?.forEach(track => track.stop());
+  };
+
+  const captureImage = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    performOCR(canvas.toDataURL());
+  };
+
+  const performOCR = async (imageData) => {
+    const { data: { text } } = await Tesseract.recognize(imageData, 'eng');
+    setOCRResult(text);
+  };
   
   return (
     <div className="widgetSm">
       <span className="widgetSmTitle">Camera</span>
       <ul className="widgetSmList">
-      <video ref={videoRef}/>
+      <video ref={videoRef} autoPlay={true} />
       </ul>
       <br />
-      <button onClick={takePicture} className="btn btn-danger container">Take Photo</button>
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <button className="btn btn-danger container" onClick={captureImage}>Capture and OCR</button>
       <br />
-      <canvas ref={photoRef}></canvas>
-      <br />
-      <button className="btn btn-danger container" onClick={clearImage} >Clear Poto</button>
+      <div>OCR Result: {ocrResult}</div>
     </div>
   );
 }
+export default CameraOCR;
