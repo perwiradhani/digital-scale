@@ -59,13 +59,13 @@ function App() {
           <Route path="/verifikasi">
             <ProductList />
           </Route>
-          <Route path="/product/:productId">
+          <Route path="/verif/:verifId">
             <Product />
           </Route>
           <Route path="/approves">
             <ApproveList />
           </Route>
-          <Route path="/approves/:productId">
+          <Route path="/approved/:approvedId">
             <Approve />
           </Route>
           <Route path="/edit">
