@@ -23,7 +23,23 @@ class MuatanController extends Controller
      */
     public function store(StoreMuatanRequest $request)
     {
-        //
+        $muatan = Muatan::create([
+            'id_truck' => $request->id_truck,
+            'id_user' => $request->id_user,
+            'id_pemilik' => $request->id_pemilik,
+            'jenis_muatan' => $request->jenis_muatan,
+            'berat_muatan' => $request->berat_muatan,
+            'tujuan' => $request->tujuan,
+            'tanggal_muat' => $request->tanggal_muat,
+            'tanggal_bongkar' => $request->tanggal_bongkar,
+            'harga_muatan' => $request->harga_muatan,
+            'status' => $request->status,
+        ]);
+
+        return response()->json([
+            'user' => $muatan,
+            'message' => 'Data muatan berhasil ditambahkan'
+        ], 200);
     }
 
     /**
