@@ -2,8 +2,27 @@ import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./dashboard.css";
 import { userData } from "../../dummyData";
+import React, { useState, useEffect} from "react";
+import axios from "axios";
+
 
 export default function Home() {
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/profile', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      setUserProfile(res.data)
+      localStorage.setItem('username', res.data.username)
+    })
+  }, [])
+
+
+
+
   return (
     <div className="home">
       <h2>Dashboard</h2>
