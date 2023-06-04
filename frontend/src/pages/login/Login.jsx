@@ -39,7 +39,7 @@ export default function Form() {
                 window.location.href = '/'
             // }
             // else {
-                // alert(res.data.message)
+            //     alert(res.data.message)
             // }
             // localStorage.setItem('token', res.data.token)
             // window.location.href = '/'

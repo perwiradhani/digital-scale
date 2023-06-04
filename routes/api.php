@@ -46,3 +46,5 @@ Route::get('/logout', [AuthenticationController::class, 'logout']);
 Route::get('/user/{id}', [AuthenticationController::class, 'user']);
 Route::put('/user/{id}', [AuthenticationController::class, 'update']);
 Route::delete('/user/{id}', [AuthenticationController::class, 'destroy']);
+
+Route::middleware('auth:sanctum')->get('/profile', [AuthenticationController::class, 'show']);

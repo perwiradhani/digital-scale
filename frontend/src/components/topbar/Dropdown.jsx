@@ -41,7 +41,10 @@ const DropDownProfile = () => {
   
   
   const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('username')
     window.location.href = '/login'
+
     // e.preventDefault();
       
     // axios.get('http://localhost:8000/api/logout').then((res) => {
