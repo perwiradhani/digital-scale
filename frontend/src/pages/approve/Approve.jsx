@@ -3,6 +3,7 @@ import "./approve.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { productRows } from "../../dummyData";
 import { useState } from "react";
+import Topbar from "../../components/topbar/Topbar";
 
 export default function Approve() {
   const [data] = useState(productRows);
@@ -37,6 +38,7 @@ export default function Approve() {
 
   return (
     <div className="approveList">
+      <Topbar />
       <h2>Halaman Yang Sudah Di Approve</h2>
       <br></br>
       <DataGrid

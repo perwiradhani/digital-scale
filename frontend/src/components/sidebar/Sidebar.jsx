@@ -13,11 +13,16 @@ import {
   AirplanemodeActive,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import logo from "./logo.png"
 
 function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
+        <div className="sidebarIcon">
+          <h2>Digital Scale</h2>
+          <br></br>
+        </div>
         <div className="sidebarMenu">
           <ul className="sidebarList">
             <Link to="/" className="link">

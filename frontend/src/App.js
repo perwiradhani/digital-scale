@@ -22,72 +22,70 @@ import UpdateTruck from "./pages/updateTruck/UpdateTruck";
 import Timbang from "./pages/scan/Timbang";
 
 function App() {
-  return (
-    <Router>
-      {/* <div>
+    return (
+        <Router>
+            {/* <div>
         <Switch>
         <Route exact path="/login">
             <Login />
           </Route>
         </Switch>
       </div> */}
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route path="/users">
-            <UserList />
-          </Route>
-          <Route path="/trucks">
-            <TruckList />
-          </Route>
-          <Route path="/user/:userId">
-            <UpdateUser />
-          </Route>
-          <Route path="/truck/:userId">
-            <UpdateTruck />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/newTruck">
-            <NewTruck />
-          </Route>
-          <Route path="/verifikasi">
-            <ProductList />
-          </Route>
-          <Route path="/verif/:verifId">
-            <Product />
-          </Route>
-          <Route path="/approves">
-            <ApproveList />
-          </Route>
-          <Route path="/approved/:approvedId">
-            <Approve />
-          </Route>
-          <Route path="/edit">
-            <EditList />
-          </Route>
-          <Route path="/edit/:userId">
-            <Edit />
-          </Route>
-          <Route exact path="/rekapLaporan">
-            <RekapLaporan />
-          </Route>
-          <Route exact path="/inputManual">
-            <InputManual />
-          </Route>
-          <Route exact path="/scan">
-            <Timbang />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-    
-  );
+            <div className="container">
+                <Sidebar />
+                <Switch>
+                    <Route exact path="/">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/users">
+                        <UserList />
+                    </Route>
+                    <Route path="/trucks">
+                        <TruckList />
+                    </Route>
+                    <Route path="/user/:userId">
+                        <UpdateUser />
+                    </Route>
+                    <Route path="/truck/:userId">
+                        <UpdateTruck />
+                    </Route>
+                    <Route path="/newUser">
+                        <NewUser />
+                    </Route>
+                    <Route path="/newTruck">
+                        <NewTruck />
+                    </Route>
+                    <Route path="/verifikasi">
+                        <ProductList />
+                    </Route>
+                    <Route path="/verif/:verifId">
+                        <Product />
+                    </Route>
+                    <Route path="/approves">
+                        <ApproveList />
+                    </Route>
+                    <Route path="/approved/:approvedId">
+                        <Approve />
+                    </Route>
+                    <Route path="/edit">
+                        <EditList />
+                    </Route>
+                    <Route path="/edit/:userId">
+                        <Edit />
+                    </Route>
+                    <Route exact path="/rekapLaporan">
+                        <RekapLaporan />
+                    </Route>
+                    <Route exact path="/inputManual">
+                        <InputManual />
+                    </Route>
+                    <Route exact path="/scan">
+                        <Timbang />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

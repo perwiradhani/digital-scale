@@ -5,6 +5,7 @@ import { productRows } from "../../dummyData";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Swal from 'sweetalert2';
+import Topbar from "../../components/topbar/Topbar";
 
 export default function VerifList() {
   const [data] = useState(productRows);
@@ -59,6 +60,7 @@ export default function VerifList() {
 
   return (
     <div className="userList">
+      <Topbar />
       <h2>Halaman Verifikasi</h2>
       <br></br>
       <DataGrid

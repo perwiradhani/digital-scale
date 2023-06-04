@@ -1,6 +1,7 @@
 import "./inputManual.css";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import Topbar from "../../components/topbar/Topbar";
 
 const InputManual = () => {
 
@@ -16,8 +17,9 @@ const InputManual = () => {
 
   return (
     <div className="inputManual">
+      <Topbar />
       <div className="inputManualTitleContainer">
-        <h1 className="inputManualTitle">Input Manual</h1>
+        <h2 className="inputManualTitle">Input Manual</h2>
       </div>
       <div className="inputManualContainer">
         <div className="inputManualUpdate">
