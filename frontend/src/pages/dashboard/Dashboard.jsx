@@ -2,9 +2,13 @@ import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./dashboard.css";
 import { userData } from "../../dummyData";
+<<<<<<< HEAD
 import React, { useState, useEffect} from "react";
 import axios from "axios";
 
+=======
+import Topbar from "../../components/topbar/Topbar";
+>>>>>>> 0bbb193b7ecda219c0780cdaac6f8d7ee9ef6e96
 
 export default function Home() {
   const [userProfile, setUserProfile] = useState(null);
@@ -25,6 +29,7 @@ export default function Home() {
 
   return (
     <div className="home">
+      <Topbar />
       <h2>Dashboard</h2>
       <br></br>
       <FeaturedInfo />

@@ -73,7 +73,6 @@ export default function Form() {
                     <button className="loginButton">Login</button>
                     {/* </Link> */}
                 </form>
-
             </div>
         </div>
     </section>

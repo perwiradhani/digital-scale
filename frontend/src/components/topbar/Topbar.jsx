@@ -6,6 +6,8 @@ import axios from "axios";
 import "./Dropdown";
 import DropDownProfile from "./Dropdown";
 import foto from './assets/petugas.png';
+import logo from './assets/logo.png';
+import Waktu from "./Waktu";
 
 const Topbar = () => {
   const [openProfile, setOpenProfile] = useState(false);
@@ -14,8 +16,9 @@ const Topbar = () => {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Digital Scale</span>
+          <span className="logo"><img src={logo} alt="" width="40px" height="40px" /></span>
         </div>
+        <span className="waktu"><Waktu/></span>
         <div className="topRight">
           <div className="topbarIconContainer">
             <NotificationsNone />

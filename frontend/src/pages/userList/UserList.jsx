@@ -5,6 +5,7 @@ import { userData, userRows } from "../../dummyData";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Topbar from "../../components/topbar/Topbar";
 
 export default function UserList() {
   // const [data, setData] = useState(userRows);
@@ -81,6 +82,7 @@ export default function UserList() {
 
   return (
       <div className="userList">
+        <Topbar />
         <div className="userTitleContainer">
         <h2>Data User</h2>
       <br></br>

@@ -1,6 +1,7 @@
 import "./newUser.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Topbar from "../../components/topbar/Topbar";
 
 export default function NewUser() {
   // const [nama_user, setNamaUser] = useState("");
@@ -58,6 +59,7 @@ export default function NewUser() {
 
   return (
     <div className="newUser">
+      <Topbar />
       <h2 className="newUserTitle">New User</h2>
       <form onSubmit={handleSubmit} className="newUserForm" id="CATEGORY_FORM">
         <div className="newUserItem">
