@@ -1,7 +1,7 @@
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./dashboard.css";
-import { userData } from "../../dummyData";
+import { getUsers } from "../../dummyData";
 import Topbar from "../../components/topbar/Topbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,7 +29,7 @@ export default function Home() {
       <h2>Dashboard</h2>
       <br></br>
       <FeaturedInfo />
-      <Chart data={userData} title="User Analytics" grid dataKey="Active User"/>
+      <Chart data={getUsers} title="User Analytics" grid dataKey="Active User"/>
     </div>
   );
 }
