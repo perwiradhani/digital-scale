@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TruckController;
 // use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MuatanController;
 use PHPUnit\Framework\Attributes\Group;
 
 /*
@@ -46,3 +47,12 @@ Route::get('/logout', [AuthenticationController::class, 'logout']);
 Route::get('/user/{id}', [AuthenticationController::class, 'user']);
 Route::put('/user/{id}', [AuthenticationController::class, 'update']);
 Route::delete('/user/{id}', [AuthenticationController::class, 'destroy']);
+
+Route::middleware('auth:sanctum')->get('/profile', [AuthenticationController::class, 'show']);
+
+
+Route::post('/muatan', [MuatanController::class, 'store']);
+Route::get('/muatan', [MuatanController::class, 'index']);
+Route::put('/muatan/{id}', [MuatanController::class, 'update']);
+Route::delete('/muatan/{id}', [MuatanController::class, 'destroy']);
+Route::get('/muatan/{id}', [MuatanController::class, 'show']);

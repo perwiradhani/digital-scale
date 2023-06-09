@@ -1,17 +1,14 @@
 .sidebar {
   flex: 1;
-  height: calc(100vh - 50px);
-  position: sticky;
-  top: 50px;
+  position: inherit;
 }
 
 .sidebarWrapper {
-  padding: 20px;
+  padding: 25px;
   color: #a6a196;
-  box-sizing: border-box;
   box-shadow: 0.5px 0px 0px 0.5px rgb(222, 218, 218);
   border-radius: 10px;
-  margin-left: 2px;
+  margin-left: 5px;
   margin-right: 10px;
 }
 
@@ -44,6 +41,9 @@
 }
 
 .sidebarIcon{
-    margin-right: 5px;
+    margin-right: 10px;
     font-size: 20px !important;
+}
+.sidebarIcon h2{
+  color: #f8cc52;
 }

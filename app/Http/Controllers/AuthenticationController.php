@@ -131,4 +131,10 @@ class AuthenticationController extends Controller
             'message' => 'User deleted'
         ], 200);
     }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        return response()->json($user, 200);
+    }
 }

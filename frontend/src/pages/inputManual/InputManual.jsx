@@ -1,11 +1,25 @@
 import "./inputManual.css";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
+import Topbar from "../../components/topbar/Topbar";
 
-export default function inputManual() {
+const InputManual = () => {
+
+  const handleCellButtonClick = () => {
+    Swal.fire({
+      position: 'top-bottom',
+      icon: 'success',
+      title: 'Data has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
   return (
     <div className="inputManual">
+      <Topbar />
       <div className="inputManualTitleContainer">
-        <h1 className="inputManualTitle">Input Manual</h1>
+        <h2 className="inputManualTitle">Input Manual</h2>
       </div>
       <div className="inputManualContainer">
         <div className="inputManualUpdate">
@@ -42,13 +56,13 @@ export default function inputManual() {
               <div className="inputManualUpdateItem">
                 <label>Berat</label>
                 <>
-                  90
+                  90 Kg
                 </>
               </div>
             </div>
             <div className="inputManualUpdateRight">
-              <Link to ="/edits">
-              <button className="inputManualUpdateButton">Simpan</button>
+              <Link to ="/trucks">
+              <button className="inputManualUpdateButton" onClick={() => handleCellButtonClick()}>Simpan</button>
               </Link>
             </div>
           </form>
@@ -57,3 +71,5 @@ export default function inputManual() {
     </div>
   );
 }
+
+export default InputManual;

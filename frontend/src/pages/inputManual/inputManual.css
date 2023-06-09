@@ -1,6 +1,5 @@
 .inputManual {
     flex: 4;
-    padding: 20px;
   }
   
   .inputManualTitleContainer {
@@ -12,8 +11,7 @@
   .inputManualContainer {
     display: flex;
     margin-top: 20px;
-    margin-left: -20px;
-    margin-right: 400px;
+    margin-right: 600px;
   }
   
   .inputManualUpdate {

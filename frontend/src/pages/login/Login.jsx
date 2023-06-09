@@ -25,7 +25,7 @@ export default function Form() {
         setLogin({...loginInput, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const data = {
@@ -33,11 +33,25 @@ export default function Form() {
             password: loginInput.password
         }
 
-        axios.post('http://localhost:8000/api/login', data).then((res) => {
-            localStorage.setItem('token', res.data.token)
-            window.location.href = '/'
+        await axios.post('http://localhost:8000/api/login', data).then((res) => {
+            // if (res.data.status === 200) {
+                localStorage.setItem('token', res.data.token)
+                window.location.href = '/'
+            // }
+            // else {
+            //     alert(res.data.message)
+            // }
+            // localStorage.setItem('token', res.data.token)
+            // window.location.href = '/'
             // history.push('/users')
         })
+        
+
+        // axios.post('http://localhost:8000/api/login', data).then((res) => {
+        //     localStorage.setItem('token', res.data.token)
+        //     window.location.href = '/'
+        //     // history.push('/users')
+        // })
     }
     
   return (
@@ -51,13 +65,14 @@ export default function Form() {
                 <span>Enjoy the service</span>
 
                 <form id='form' className='flex flex-col' onSubmit={handleSubmit}>
-                    <input type="text" name='username' onChange={handleInput} value={loginInput.username} />
-                    <input type="password" name='password' onChange={handleInput} value={loginInput.password} />
+                    <span>Username</span>
+                    <input type="text" name='username' placeholder='Masukkan username' onChange={handleInput} value={loginInput.username} />
+                    <span>Password</span>
+                    <input type="password" name='password' placeholder='Masukkan password' onChange={handleInput} value={loginInput.password} />
                     {/* <Link to="/"> */}
                     <button className="loginButton">Login</button>
                     {/* </Link> */}
                 </form>
-
             </div>
         </div>
     </section>

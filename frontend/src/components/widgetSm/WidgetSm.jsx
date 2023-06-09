@@ -1,59 +1,142 @@
 import "./widgetSm.css";
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Tesseract from "tesseract.js";
+import Swal from "sweetalert2";
+import moment from "moment";
 
-export default function WidgetSm() {
-  let videoRef = useRef(null)
-  let photoRef = useRef(null)
+const CameraOCR = () => {
+    const videoRef = useRef(null);
+    const canvasRef = useRef(null);
+    const [ocrResult, setOCRResult] = useState("");
 
-  const getUserCamera = () => {
-    navigator.mediaDevices.getUserMedia({
-      video:true
-    })
-    .then((stream) => {
-      let video = videoRef.current
-      video.srcObject = stream
-      video.play()
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-  }
+    useEffect(() => {
+        startCamera();
 
-  const takePicture = () => {
-    let width = 600
-    let height = width / (16 / 9)
-    let photo = photoRef.current
-    let video = videoRef.current
+        return () => {
+            stopCamera();
+        };
+    }, []);
 
-    photo.width = width
-    photo.height = height
+    const startCamera = async () => {
+        try {
+            if (videoRef.current) {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                });
+                videoRef.current.srcObject = stream;
+            }
+        } catch (error) {
+            console.error("Error accessing camera:", error);
+        }
+    };
 
-    let ctx = photo.getContext('2d')
-    ctx.drawImage(video, 0, 0, photo.width, photo.height)
-  }
+    const stopCamera = () => {
+        const stream = videoRef.current?.srcObject;
+        const tracks = stream?.getTracks();
 
-  const clearImage = () => {
-    let photo =photoRef.current
-    let ctx = photo.getContext('2d')
-    ctx.clearRect(0, 0, photo.width, photo.height)
-  }
-  
-  useEffect(() => {
-    getUserCamera()
-  },[videoRef])
-  
-  return (
-    <div className="widgetSm">
-      <span className="widgetSmTitle">Camera</span>
-      <ul className="widgetSmList">
-      <video ref={videoRef}/>
-      </ul>
-      <br />
-      <button onClick={takePicture} className="btn btn-danger container">Take Photo</button>
-      <br />
-      <canvas ref={photoRef}></canvas>
-      <br />
-      <button className="btn btn-danger container" onClick={clearImage} >Clear Poto</button>
-    </div>
-  );
-}
+        tracks?.forEach((track) => track.stop());
+    };
+
+    const captureImage = () => {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        performOCR(canvas.toDataURL());
+    };
+
+    const performOCR = async (imageData) => {
+        const {
+            data: { text },
+        } = await Tesseract.recognize(imageData, "eng");
+        setOCRResult(text);
+    };
+    const handleCellButtonClick = () => {
+        Swal.fire({
+            position: "top-bottom",
+            icon: "success",
+            title: "Data has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    };
+    const currentDate = moment().format("DD/MM/YYYY");
+    const [time, setTime] = useState(new Date());
+
+    useEffect(() => {
+        const timerID = setInterval(() => tick(), 1000);
+
+        return function cleanup() {
+            clearInterval(timerID);
+        };
+    });
+
+    function tick() {
+        setTime(new Date());
+    }
+
+    return (
+        <div className="widgetSm">
+            <span className="widgetSmTitle">Camera</span>
+            <ul className="widgetSmList">
+                <video
+                    ref={videoRef}
+                    autoPlay={true}
+                    style={{ width: "400px", height: "300px" }}
+                />
+            </ul>
+            <br />
+            <canvas
+                classname="canvas"
+                ref={canvasRef}
+                style={{ display: "none" }}
+            />
+            <button className="btn" onClick={captureImage}>
+                Capture and OCR
+            </button>
+            <br />
+            <div className="col-1">
+                <div className="inputManualTitleContainer">
+                    <h2 className="inputManualTitle">Input Data</h2>
+                </div>
+                <form className="inputManualUpdateForm">
+                    <div className="inputManualUpdateLeft">
+                        <div className="inputManualUpdateItem">
+                            <label>ID Truk</label>
+                            <>1</>
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Plat Nomor</label>
+                            <>{ocrResult}</>
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Tanggal</label>
+                            <>{currentDate}</>
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Jam</label>
+                            <>{time.toLocaleTimeString()}</>
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Berat</label>
+                            <>90 Kg</>
+                        </div>
+                    </div>
+                    <div className="inputManualUpdateRight">
+                        <Link to="/trucks">
+                            <button
+                                className="inputManualUpdateButton"
+                                onClick={() => handleCellButtonClick()}
+                            >
+                                Simpan
+                            </button>
+                        </Link>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+export default CameraOCR;

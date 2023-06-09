@@ -23,23 +23,21 @@ class MuatanController extends Controller
      */
     public function store(StoreMuatanRequest $request)
     {
-        $muatan = Muatan::create([
-            'id_truck' => $request->id_truck,
-            'id_user' => $request->id_user,
-            'id_pemilik' => $request->id_pemilik,
-            'jenis_muatan' => $request->jenis_muatan,
-            'berat_muatan' => $request->berat_muatan,
-            'tujuan' => $request->tujuan,
-            'tanggal_muat' => $request->tanggal_muat,
-            'tanggal_bongkar' => $request->tanggal_bongkar,
-            'harga_muatan' => $request->harga_muatan,
-            'status' => $request->status,
-        ]);
+        //
+        $request->validate(
+            [
+                'jenis_muatan' => 'required',
+                'beban_seluruh' => 'required',
+            ]
+        );
 
-        return response()->json([
-            'user' => $muatan,
-            'message' => 'Data muatan berhasil ditambahkan'
-        ], 200);
+        $muatan = Muatan::create($request->all());
+        return response()->json(
+            [
+                'message' => 'Muatan berhasil ditambahkan',
+                'muatan' => $muatan
+            ], 200
+        );
     }
 
     /**
@@ -56,13 +54,41 @@ class MuatanController extends Controller
     public function update(UpdateMuatanRequest $request, Muatan $muatan)
     {
         //
+        // $muatan->update($request->all());
+        $request->validate(
+            [
+                'jenis_muatan' => 'required',
+                'beban_seluruh' => 'required',
+            ]
+        );
+
+        $muatan->jenis_muatan = $request->jenis_muatan;
+        // $muatan->berat_muatan = $request->berat_muatan;
+        $muatan->beban_seluruh = $request->beban_seluruh;
+        // $muatan->id_user = $request->id_user;
+        // $muatan->id_truck = $request->id_truck;
+        $muatan->save();
+        return response()->json(
+            [
+                'message' => 'Muatan berhasil diupdate',
+                'muatan' => $muatan
+            ], 200
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Muatan $muatan)
+    public function destroy($id)
     {
         //
+        $muatan = Muatan::find($id);
+        $muatan->delete();
+        return response()->json(
+            [
+                'message' => 'Muatan berhasil dihapus',
+                'muatan' => $muatan
+            ], 200
+        );
     }
 }

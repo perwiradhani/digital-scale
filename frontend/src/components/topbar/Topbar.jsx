@@ -1,49 +1,39 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import "./topbar.css";
 import { NotificationsNone } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./Dropdown";
+import DropDownProfile from "./Dropdown";
+import foto from './assets/petugas.png';
+import logo from './assets/logo.png';
+import Waktu from "./Waktu";
 
-export default function Topbar() {
-  const [btn, setBtn] = useState('login');
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setBtn('Logout')
-    } else {
-      setBtn('Login')
-    }
-  }, [])
-
-
-  const handleLogout = () => {
-    window.location.href = '/login'
-    // e.preventDefault();
-    
-    // axios.get('http://localhost:8000/api/logout').then((res) => {
-    //   localStorage.removeItem('token')
-    //   window.location.href = '/login'
-    // })
-  }
+const Topbar = () => {
+  const [openProfile, setOpenProfile] = useState(false);
 
   return (
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">digital scale</span>
+          <span className="logo"><img src={logo} alt="" width="40px" height="40px" /></span>
         </div>
+        <span className="waktu"><Waktu/></span>
         <div className="topRight">
           <div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
           </div>
           <div className="userTitleContainer">
-            {/* <Link to="/login"> */}
-              <button type="button" onClick={handleLogout} className="logout">{btn}</button>
-            {/* </Link> */}
+            <img src={foto} alt="" className="topAvatar" onClick={() => setOpenProfile((prev) => !prev)} />
+            {
+              openProfile && <DropDownProfile />
+            }
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+export default Topbar;
