@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTruckRequest;
 use App\Http\Resources\TruckResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TruckController extends Controller
 {
@@ -109,5 +110,17 @@ class TruckController extends Controller
             'user' => $truck,
             'message' => 'Data truck berhasil dihapus'
         ], 200);
+    }
+
+    public function getTruckCount()
+    {
+        $truck = Truck::all()->count();
+        $truck = Truck::count();
+        return response()->json($truck, 200);
+        // $tableName = 'trucks';
+        // $count = DB::table($tableName)->count();
+
+        // return response()->json([
+        //      $count], 200);
     }
 }

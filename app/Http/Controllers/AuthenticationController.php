@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 
 class AuthenticationController extends Controller
 {
@@ -136,5 +137,22 @@ class AuthenticationController extends Controller
     {
         $user = $request->user();
         return response()->json($user, 200);
+    }
+
+    public function getUserCount()
+    {
+        $user = User::all()->count();
+        return response()->json($user, 200);
+    }
+
+    public function getTruckCount()
+    {
+        // $truck = Truck::all()->count();
+        // $truck = Truck::count();
+        // return response()->json($truck, 200);
+        $tableName = 'trucks';
+        $count = DB::table($tableName)->count();
+
+        return response()->json($count, 200);
     }
 }

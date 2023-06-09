@@ -36,7 +36,18 @@ export default function Form() {
         await axios.post('http://localhost:8000/api/login', data).then((res) => {
             // if (res.data.status === 200) {
                 localStorage.setItem('token', res.data.token)
-                window.location.href = '/'
+                axios.get('http://localhost:8000/api/profile', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }).then((res) => {
+                    localStorage.setItem('username', res.data.username)
+                    localStorage.setItem('role', res.data.role)
+                    window.location.href = '/'
+                })
+                // localStorage.setItem('username', res.data.username)
+                // localStorage.setItem('role', res.data.role)
+                
             // }
             // else {
             //     alert(res.data.message)

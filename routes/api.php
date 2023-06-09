@@ -38,6 +38,7 @@ Route::get('/truck/{id}', [TruckController::class, 'show']);
 Route::post('/truck', [TruckController::class, 'store']);
 Route::put('/truck/{id}', [TruckController::class, 'update']);
 Route::delete('/truck/{id}', [TruckController::class, 'destroy']);
+// Route::get('/truck/counts', [TruckController::class, 'getTruckCount']);
 
 
 Route::post('/login', [AuthenticationController::class, 'login']);
@@ -47,6 +48,8 @@ Route::get('/logout', [AuthenticationController::class, 'logout']);
 Route::get('/user/{id}', [AuthenticationController::class, 'user']);
 Route::put('/user/{id}', [AuthenticationController::class, 'update']);
 Route::delete('/user/{id}', [AuthenticationController::class, 'destroy']);
+Route::get('/users/counts', [AuthenticationController::class, 'getUserCount']);
+Route::get('/trucks/counts', [AuthenticationController::class, 'getTruckCount']);
 
 Route::middleware('auth:sanctum')->get('/profile', [AuthenticationController::class, 'show']);
 
