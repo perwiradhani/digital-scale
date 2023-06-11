@@ -9,6 +9,7 @@ const CameraOCR = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const [ocrResult, setOCRResult] = useState("");
+    const [capturedImage, setCapturedImage] = useState(null);
 
     useEffect(() => {
         startCamera();
@@ -44,15 +45,40 @@ const CameraOCR = () => {
         const context = canvas.getContext("2d");
 
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        performOCR(canvas.toDataURL());
+        const imageData = canvas.toDataURL();
+        setCapturedImage(imageData);
+        performOCR(imageData);
     };
+
+    const deleteImage = () => {
+        setCapturedImage(null);
+        setOCRResult("");
+    };
+
+    // const performOCR = async (imageData) => {
+    //     const {
+    //         data: { text },
+    //     } = await Tesseract.recognize(imageData, "eng");
+    //     setOCRResult(text);
+    // };
 
     const performOCR = async (imageData) => {
         const {
             data: { text },
-        } = await Tesseract.recognize(imageData, "eng");
-        setOCRResult(text);
+        } = await Tesseract.recognize(imageData, "eng", {
+            tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", // Specify the characters allowed in the license plate
+            lang: "ind+eng", // Add the Indonesian language for better accuracy
+            preprocessors: ["eng2", "ind"], // Apply language-specific preprocessing
+            preserve_interword_spaces: 1, // Preserve interword spaces for license plates
+            whitelist: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", // Specify characters to be whitelisted for OCR
+        });
+        
+        // Filter out any non-alphanumeric characters
+        const alphanumericText = text.replace(/[^A-Z0-9]/g, "");
+        
+        setOCRResult(alphanumericText);
     };
+
     const handleCellButtonClick = () => {
         Swal.fire({
             position: "top-bottom",
@@ -62,6 +88,7 @@ const CameraOCR = () => {
             timer: 1500,
         });
     };
+
     const currentDate = moment().format("DD/MM/YYYY");
     const [time, setTime] = useState(new Date());
 
@@ -79,7 +106,7 @@ const CameraOCR = () => {
 
     return (
         <div className="widgetSm">
-            <span className="widgetSmTitle">Camera</span>
+            <span className="widgetSmTitle">Camera View</span>
             <ul className="widgetSmList">
                 <video
                     ref={videoRef}
@@ -89,14 +116,18 @@ const CameraOCR = () => {
             </ul>
             <br />
             <canvas
-                classname="canvas"
+                className="canvas"
                 ref={canvasRef}
                 style={{ display: "none" }}
             />
+            <div className="buttonContainer">
             <button className="btn" onClick={captureImage}>
-                Capture and OCR
+                Start
             </button>
-            <br />
+            <button className="btn2" onClick={deleteImage}>
+                Delete
+            </button>
+            </div>
             <div className="col-1">
                 <div className="inputManualTitleContainer">
                     <h2 className="inputManualTitle">Input Data</h2>
@@ -123,6 +154,12 @@ const CameraOCR = () => {
                             <label>Berat</label>
                             <>90 Kg</>
                         </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Gambar</label>
+                            {capturedImage && (
+                                <img src={capturedImage} alt="Captured" />
+                            )}
+                        </div>
                     </div>
                     <div className="inputManualUpdateRight">
                         <Link to="/trucks">
@@ -139,4 +176,5 @@ const CameraOCR = () => {
         </div>
     );
 };
+
 export default CameraOCR;

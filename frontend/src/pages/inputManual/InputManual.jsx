@@ -55,9 +55,18 @@ const InputManual = () => {
               </div>
               <div className="inputManualUpdateItem">
                 <label>Berat</label>
-                <>
-                  90 Kg
-                </>
+                <input
+                  type="text"
+                  placeholder="Masukkan Berat"
+                  className="inputManualUpdateInput"
+                />
+              </div>
+              <div className="inputManualUpdateItem">
+                <label>Gambar</label>
+                <input
+                  type="file"
+                  className="inputManualUpdateInput"
+                />
               </div>
             </div>
             <div className="inputManualUpdateRight">

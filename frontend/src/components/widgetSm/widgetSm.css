@@ -1,4 +1,4 @@
-.widgetSm{
+.widgetSm {
     flex: 1;
     -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -6,18 +6,27 @@
     margin-right: 500px;
 }
 
-.widgetSmTitle{
+.widgetSmTitle {
     font-size: 22px;
     font-weight: 600;
 }
 
-.widgetSmList{
+.widgetSmList {
     margin: 0;
     padding: 0;
     list-style: none;
 }
+
+.buttonContainer {
+    margin-top: 10px;
+}
+
+.buttonContainer button {
+    margin-right: 10px;
+}
+
 .btn {
-    width: 150px;
+    width: 70px;
     border: none;
     background-color: darkblue;
     color: white;
@@ -26,18 +35,44 @@
     margin-top: 1px;
     cursor: pointer;
 }
-.btn:hover{
-    width: 150px;
+
+.btn:hover {
+    width: 70px;
     border: none;
-    background-color: rgb(188, 158, 8);
+    background-color: rgb(205, 205, 255);
     color: rgb(0, 0, 0);
     font-weight: 600;
     border-radius: 10px;
     margin-top: 1px;
     cursor: pointer;
 }
+
+.btn2 {
+    width: 70px;
+    height: 40px;
+    border: none;
+    background-color: rgb(139, 0, 0);
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.btn2:hover {
+    width: 70px;
+    height: 40px;
+    border: none;
+    background-color: rgb(255, 182, 182);
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    border-radius: 10px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
 @media (max-width: 400px) {
-    .widgetSmList{
+    .widgetSmList {
         flex-direction: column;
     }
 }
