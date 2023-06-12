@@ -155,4 +155,15 @@ class AuthenticationController extends Controller
 
         return response()->json($count, 200);
     }
+
+    public function getMuatanCount()
+    {
+        // $truck = Truck::all()->count();
+        // $truck = Truck::count();
+        // return response()->json($truck, 200);
+        $tableName = 'muatans';
+        $count = DB::table($tableName)->count();
+
+        return response()->json($count, 200);
+    }
 }

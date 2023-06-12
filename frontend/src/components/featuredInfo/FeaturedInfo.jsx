@@ -5,6 +5,7 @@ import axios from "axios";
 export default function FeaturedInfo() {
   const [count, setCount] = useState(0);
   const [countTruck, setCountTruck] = useState(0);
+  const [countValid, setCountValid] = useState(0);
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/users/counts', {
@@ -20,6 +21,13 @@ export default function FeaturedInfo() {
   })
   }, []);
 
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/muatans/counts', {
+  }).then((res) => {
+    setCountValid(res.data)
+  })
+  }, []);
+
 
   return (
     <div className="featured">
@@ -32,7 +40,7 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Total Data Valid</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">4.415</span>
+          <span className="featuredMoney">{countValid}</span>
         </div>
       </div>
       <div className="featuredItem">

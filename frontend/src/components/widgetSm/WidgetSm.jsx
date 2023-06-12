@@ -4,12 +4,30 @@ import { Link } from "react-router-dom";
 import Tesseract from "tesseract.js";
 import Swal from "sweetalert2";
 import moment from "moment";
+import axios from "axios";
 
 const CameraOCR = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const [ocrResult, setOCRResult] = useState("");
     const [capturedImage, setCapturedImage] = useState(null);
+    const [input, setInput] = useState({
+        berat : '',
+        plat : '',
+
+    });
+
+    const handleInput = (e) => {
+        e.persist();
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value,
+        });
+        setOCRResult({
+            ...ocrResult,
+            [e.target.name]: e.target.value,
+        });
+    };
 
     useEffect(() => {
         startCamera();
@@ -18,6 +36,8 @@ const CameraOCR = () => {
             stopCamera();
         };
     }, []);
+
+    // handle
 
     const startCamera = async () => {
         try {
@@ -79,17 +99,9 @@ const CameraOCR = () => {
         setOCRResult(alphanumericText);
     };
 
-    const handleCellButtonClick = () => {
-        Swal.fire({
-            position: "top-bottom",
-            icon: "success",
-            title: "Data has been saved",
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    };
+ 
 
-    const currentDate = moment().format("DD/MM/YYYY");
+    const currentDate = moment().format("YYYY/MM/DD");
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
@@ -103,6 +115,31 @@ const CameraOCR = () => {
     function tick() {
         setTime(new Date());
     }
+
+    const handleCellButtonClick = (e) => {
+        e.preventDefault();
+
+        const data = {
+            plat_nomor: input.plat,
+            berat: input.berat,
+            // tanggal: currentDate,
+            // jam: time.toLocaleTimeString(),
+            
+            // gambar: capturedImage,
+        };
+
+        axios.post("http://localhost:8000/api/muatan/scale", data).then((res) => {
+            alert(res.data.message);
+            window.location.href = "/muatan";
+        // Swal.fire({
+        //     position: "top-bottom",
+        //     icon: "success",
+        //     title: res.data.message,
+        //     showConfirmButton: false,
+        //     timer: 1500,
+        // });
+        });
+    };
 
     return (
         <div className="widgetSm">
@@ -132,15 +169,16 @@ const CameraOCR = () => {
                 <div className="inputManualTitleContainer">
                     <h2 className="inputManualTitle">Input Data</h2>
                 </div>
-                <form className="inputManualUpdateForm">
+                <form onSubmit={handleCellButtonClick} className="inputManualUpdateForm">
                     <div className="inputManualUpdateLeft">
-                        <div className="inputManualUpdateItem">
+                        {/* <div className="inputManualUpdateItem">
                             <label>ID Truk</label>
-                            <>1</>
-                        </div>
+                            <input className="inputManualUpdateInput" placeholder="id" type="text" name="id" id="" />
+                        </div> */}
                         <div className="inputManualUpdateItem">
                             <label>Plat Nomor</label>
-                            <>{ocrResult}</>
+                            <input className="inputManualUpdateInput" value={input.plat} type="text" name="plat" id="" onChange={handleInput} />
+                            {/* <>{ocrResult}</> */}
                         </div>
                         <div className="inputManualUpdateItem">
                             <label>Tanggal</label>
@@ -152,7 +190,8 @@ const CameraOCR = () => {
                         </div>
                         <div className="inputManualUpdateItem">
                             <label>Berat</label>
-                            <>90 Kg</>
+                            <input className="inputManualUpdateInput" placeholder="Berat" type="number" name="berat" id="" onChange={handleInput} value={input.berat} />
+                            {/* <>90 Kg</> */}
                         </div>
                         <div className="inputManualUpdateItem">
                             <label>Gambar</label>
@@ -162,14 +201,14 @@ const CameraOCR = () => {
                         </div>
                     </div>
                     <div className="inputManualUpdateRight">
-                        <Link to="/trucks">
+                        {/* <Link to="/trucks"> */}
                             <button
                                 className="inputManualUpdateButton"
-                                onClick={() => handleCellButtonClick()}
+                                // onClick={() => handleCellButtonClick()}
                             >
                                 Simpan
                             </button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </form>
             </div>

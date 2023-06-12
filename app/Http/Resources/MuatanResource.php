@@ -17,11 +17,13 @@ class MuatanResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'plat_nomor' => $this->plat_nomor,
-            'jenis_truck' => $this->jenis_truck,
-            'beban_kosong' => $this->beban_kosong,
-            'beban_max' => $this->beban_max,
-            'user' => $this->whenLoaded('user')
+            'plat' => $this->plat,
+            // 'jenis_truck' => $this->jenis_truck,
+            'beban_seluruh' => $this->beban_seluruh,
+            'waktu' => $this->waktu,
+            // 'beban_max' => $this->beban_max,
+            // 'user' => $this->whenLoaded('user')
+            'status' => $this->status,
         ];
     }
 }

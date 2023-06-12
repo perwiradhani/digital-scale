@@ -111,6 +111,8 @@ export default function UserList() {
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}
+                autoHeight
+                hideFooter={true}
             />
             {/* <div className="container px-4">
       <div className="card mt-4">

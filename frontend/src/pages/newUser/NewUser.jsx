@@ -4,10 +4,6 @@ import axios from "axios";
 import Topbar from "../../components/topbar/Topbar";
 
 export default function NewUser() {
-  // const [nama_user, setNamaUser] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [role, setRole] = useState("");
   const [userInput, setUser] = useState({
     nama_user: '',
     username: '',

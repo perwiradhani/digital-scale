@@ -20,7 +20,7 @@ class Truck extends Model
         'plat_nomor',
         'jenis_truck',
         'beban_kosong',
-        'beban_max',
+        'beban',
         'id_user',
     ];
 

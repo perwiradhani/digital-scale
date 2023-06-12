@@ -20,5 +20,7 @@ class Muatan extends Model
         'beban_seluruh',
         'id_user',
         'id_truck',
+        'plat',
+        'status',
     ];
 }

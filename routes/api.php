@@ -50,6 +50,7 @@ Route::put('/user/{id}', [AuthenticationController::class, 'update']);
 Route::delete('/user/{id}', [AuthenticationController::class, 'destroy']);
 Route::get('/users/counts', [AuthenticationController::class, 'getUserCount']);
 Route::get('/trucks/counts', [AuthenticationController::class, 'getTruckCount']);
+Route::get('/muatans/counts', [AuthenticationController::class, 'getMuatanCount']);
 
 Route::middleware('auth:sanctum')->get('/profile', [AuthenticationController::class, 'show']);
 
@@ -59,3 +60,5 @@ Route::get('/muatan', [MuatanController::class, 'index']);
 Route::put('/muatan/{id}', [MuatanController::class, 'update']);
 Route::delete('/muatan/{id}', [MuatanController::class, 'destroy']);
 Route::get('/muatan/{id}', [MuatanController::class, 'show']);
+Route::post('/muatan/scale', [MuatanController::class, 'scale']);
+Route::put('/muatan/verif/{id}', [MuatanController::class, 'updateStatus']);

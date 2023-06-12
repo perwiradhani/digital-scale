@@ -123,4 +123,6 @@ class TruckController extends Controller
         // return response()->json([
         //      $count], 200);
     }
+
+
 }
