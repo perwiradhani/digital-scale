@@ -39,7 +39,7 @@ export default function VerifList() {
         axios.put(`http://localhost:8000/api/muatan/verif/${id}`, {
           status: "Sudah Verifikasi",
         }).then((response) => {
-          window.location.href = `/verifikasi`;
+          window.location.href = `/rekaplaporan`;
         });
         // window.location.href = `/approve`;
       }

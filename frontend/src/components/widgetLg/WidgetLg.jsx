@@ -4,6 +4,11 @@ import axios from "axios";
 
 export default function WidgetLg() {
   const [data, setData] = useState([]);
+  const [approved, setApproved] = useState(["Approved"]);
+
+  const handleItem = (item) => {
+    setApproved(item);
+  }
 
   useEffect(() => {
     fetch('http://localhost:8000/api/muatan')
@@ -31,8 +36,8 @@ export default function WidgetLg() {
           {/* <th className="widgetLgTh">Jam</th> */}
           <th className="widgetLgTh">Plat Nomor</th>
           <th className="widgetLgTh">Berat</th>
-          <th className="widgetLgTh">Status</th>
-          <th className="widgetLgTh">Action</th>
+          {/* <th className="widgetLgTh">Status</th>
+          <th className="widgetLgTh">Action</th> */}
         </tr>
         </thead>
         
@@ -45,15 +50,19 @@ export default function WidgetLg() {
           {/* <td className="widgetLgJam">{muatan.jam}</td> */}
           <td className="widgetLgPlatNomor">{muatan.plat}</td>
           <td className="widgetLgBerat">{muatan.beban_seluruh}</td>
-          <td className="widgetLgStatus">
-            <Button type="Approved" />
+          <td className={muatan.status=== 'Sudah Verifikasi' ? 'widgetLgStatus approveListBtn' : 'widgetLgStatus rejectedListBtn'}
+          >
+            {/* <Button type="Approved" />
+             */}
+             
+             {muatan.status}
           </td>
-          <td className="widgetLgAction">
+          {/* <td className="widgetLgAction">
             <Button type="Edit" />
           </td>
           <td className="widgetLgAction">
             <Button type="Delete" />
-          </td>
+          </td> */}
         </tr>
         ))}
         </tbody>
