@@ -107,7 +107,9 @@ export default function VerifList() {
         columns={columns}
         pageSize={8}
         // checkboxSelection
-        rowHeight={50}
+        // rowHeight={50}
+        autoHeight
+        hideFooter={true}
       />
     </div>
   );

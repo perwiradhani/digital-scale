@@ -146,5 +146,17 @@ class MuatanController extends Controller
         );
     }
 
-    // public function getMonth
+    public function berat(Request $request)
+    {
+        $request->input('berat');
+
+        // $result = DB::insert("INSERT INTO berat (berat) VALUES ('$berat')");
+        $result = DB::insert("INSERT INTO berat (berat) VALUES ('$request->berat')");
+        return response()->json(
+            [
+                'message' => 'Berhasil',
+                'result' => $result
+            ], 200
+        );
+    }
 }

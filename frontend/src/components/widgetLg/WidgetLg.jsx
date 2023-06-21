@@ -36,8 +36,8 @@ export default function WidgetLg() {
           {/* <th className="widgetLgTh">Jam</th> */}
           <th className="widgetLgTh">Plat Nomor</th>
           <th className="widgetLgTh">Berat</th>
-          {/* <th className="widgetLgTh">Status</th>
-          <th className="widgetLgTh">Action</th> */}
+          <th className="widgetLgTh">Status</th>
+          {/* <th className="widgetLgTh">Action</th> */}
         </tr>
         </thead>
         

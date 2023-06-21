@@ -43,8 +43,11 @@ export default function Form() {
                 }).then((res) => {
                     localStorage.setItem('username', res.data.username)
                     localStorage.setItem('role', res.data.role)
-                    window.location.href = '/'
+                    // window.location.href = '/'
                 })
+                if (localStorage.getItem('role') === 'petugas') {
+                    window.location.href = '/rekaplaporan'
+                }
                 // localStorage.setItem('username', res.data.username)
                 // localStorage.setItem('role', res.data.role)
                 

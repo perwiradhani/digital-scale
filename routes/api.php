@@ -61,4 +61,5 @@ Route::put('/muatan/{id}', [MuatanController::class, 'update']);
 Route::delete('/muatan/{id}', [MuatanController::class, 'destroy']);
 Route::get('/muatan/{id}', [MuatanController::class, 'show']);
 Route::post('/muatan/scale', [MuatanController::class, 'scale']);
+Route::post('/muatan/berat', [MuatanController::class, 'berat']);
 Route::put('/muatan/verif/{id}', [MuatanController::class, 'updateStatus']);
