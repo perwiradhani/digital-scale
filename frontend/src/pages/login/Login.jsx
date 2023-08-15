@@ -43,11 +43,13 @@ export default function Form() {
                 }).then((res) => {
                     localStorage.setItem('username', res.data.username)
                     localStorage.setItem('role', res.data.role)
-                    // window.location.href = '/'
+                    localStorage.setItem('nama', res.data.nama_user)
+                    localStorage.setItem('id', res.data.id)
+                    window.location.href = '/'
                 })
-                if (localStorage.getItem('role') === 'petugas') {
-                    window.location.href = '/rekaplaporan'
-                }
+                // if (localStorage.getItem('role') === 'petugas') {
+                //     window.location.href = '/rekaplaporan'
+                // }
                 // localStorage.setItem('username', res.data.username)
                 // localStorage.setItem('role', res.data.role)
                 
@@ -80,9 +82,9 @@ export default function Form() {
 
                 <form id='form' className='flex flex-col' onSubmit={handleSubmit}>
                     <span>Username</span>
-                    <input type="text" name='username' placeholder='Masukkan username' onChange={handleInput} value={loginInput.username} />
+                    <input type="text" name='username' placeholder='Masukkan username' onChange={handleInput} value={loginInput.username} required />
                     <span>Password</span>
-                    <input type="password" name='password' placeholder='Masukkan password' onChange={handleInput} value={loginInput.password} />
+                    <input type="password" name='password' placeholder='Masukkan password' onChange={handleInput} value={loginInput.password} required />
                     {/* <Link to="/"> */}
                     <button className="loginButton">Login</button>
                     {/* </Link> */}

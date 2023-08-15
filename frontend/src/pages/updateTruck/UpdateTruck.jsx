@@ -33,7 +33,7 @@ export default function NewUser() {
       plat_nomor: userInput.plat_nomor,
       jenis_truck: userInput.jenis_truck,
       beban_kosong: userInput.beban_kosong,
-      beban_max: userInput.beban_max,
+      // beban_max: userInput.beban_max,
     };
 
     await axios.put(`http://localhost:8000/api/truck/${userId}`, data).then((response) => {
@@ -61,10 +61,10 @@ export default function NewUser() {
           <label>Beban Kosong</label>
           <input type="number" name="beban_kosong" onChange={handleInput} value={userInput.beban_kosong} />
         </div>
-        <div className="newUserItem">
+        {/* <div className="newUserItem">
           <label>Beban Max</label>
           <input type="number" name="beban_max" onChange={handleInput} value={userInput.beban_max} />
-        </div>
+        </div> */}
         {/* <div className="newUserItem">
           <label>Gender</label>
           <div className="newUserGender">

@@ -15,7 +15,6 @@ class Muatan extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'jenis_muatan',
         'berat_muatan',
         'beban_seluruh',
         'id_user',

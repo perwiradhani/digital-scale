@@ -1,8 +1,30 @@
 import axios from "axios";
+// import { useEffect, useState } from "react";
 
 export const getUsers = async () => {
   return await axios.get("http://localhost:8000/api/users");
 };
+
+// export const getMonths = async () => {
+//   return await axios.get("http://localhost:8000/api/months");
+// }; 
+// export const [data, setMonths] = useState([]);
+
+// useEffect(() => {
+//   const getMonths = async () => {
+//     try {
+//       const res = await axios.get("http://localhost:8000/api/months");
+//       setMonths(res.data);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+//   getMonths();
+// }, []);
+
+
+
+
 
 
 export const userData = [

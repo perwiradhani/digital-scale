@@ -44,6 +44,9 @@ const DropDownProfile = () => {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('username')
+    localStorage.removeItem('role')
+    localStorage.removeItem('nama')
+    localStorage.removeItem('id')
     window.location.href = '/login'
 
     // e.preventDefault();

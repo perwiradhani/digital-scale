@@ -66,11 +66,6 @@ export default function UserList() {
             width: 200,
         },
         {
-            field: "beban_max",
-            headerName: "Beban Maximum",
-            width: 200,
-        },
-        {
             field: "action",
             headerName: "Action",
             width: 150,
@@ -95,16 +90,22 @@ export default function UserList() {
         },
     ];
 
+    let $role = localStorage.getItem("role");
+
     return (
         <div className="userList">
             <Topbar />
             <div className="userTitleContainer">
                 <h2>Data Truck</h2>
                 <br></br>
-                <Link to="/newTruck">
+
+                {$role == "Petugas" && (
+                    <Link to="/newTruck">
                     <button className="userAddButton">Create</button>
                 </Link>
+                )}
             </div>
+
 
             <DataGrid
                 rows={userData}

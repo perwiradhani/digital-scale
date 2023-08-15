@@ -20,3 +20,9 @@
     color: rgb(41, 151, 16);
     margin-right: 20px;
 }
+
+.verifyBtn{
+    padding: 5px 10px;
+    color: rgb(0, 0, 255);
+    margin-right: 20px;
+}

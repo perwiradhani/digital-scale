@@ -51,15 +51,21 @@ Route::delete('/user/{id}', [AuthenticationController::class, 'destroy']);
 Route::get('/users/counts', [AuthenticationController::class, 'getUserCount']);
 Route::get('/trucks/counts', [AuthenticationController::class, 'getTruckCount']);
 Route::get('/muatans/counts', [AuthenticationController::class, 'getMuatanCount']);
+Route::get('/muatans/valid', [AuthenticationController::class, 'getValid']);
+Route::get('/options', [AuthenticationController::class, 'getDropdown']);
+Route::get('/months', [AuthenticationController::class, 'getMonth']);
+Route::put('/password/{id}', [AuthenticationController::class, 'updatePw']);
 
 Route::middleware('auth:sanctum')->get('/profile', [AuthenticationController::class, 'show']);
 
 
 Route::post('/muatan', [MuatanController::class, 'store']);
 Route::get('/muatan', [MuatanController::class, 'index']);
+Route::get('/muatan/show', [MuatanController::class, 'show']);
 Route::put('/muatan/{id}', [MuatanController::class, 'update']);
 Route::delete('/muatan/{id}', [MuatanController::class, 'destroy']);
 Route::get('/muatan/{id}', [MuatanController::class, 'show']);
 Route::post('/muatan/scale', [MuatanController::class, 'scale']);
 Route::post('/muatan/berat', [MuatanController::class, 'berat']);
 Route::put('/muatan/verif/{id}', [MuatanController::class, 'updateStatus']);
+Route::get('/export/csv', [MuatanController::class, 'exportCsv']);

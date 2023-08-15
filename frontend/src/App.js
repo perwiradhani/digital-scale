@@ -20,6 +20,8 @@ import TruckList from "./pages/truckList/TruckList";
 import NewTruck from "./pages/newTruck/NewTruck";
 import UpdateTruck from "./pages/updateTruck/UpdateTruck";
 import Timbang from "./pages/scan/Timbang";
+import Add from "./pages/add/Add";
+import Verifikasi from "./pages/productList/Verifikasi";
 
 function App() {
     return (
@@ -53,7 +55,7 @@ function App() {
                         <NewUser />
                     </Route>
                     <Route path="/newTruck">
-                        <NewTruck />
+                        <Add />
                     </Route>
                     <Route path="/verifikasi">
                         <ProductList />
@@ -62,7 +64,7 @@ function App() {
                         <Product />
                     </Route>
                     <Route path="/approves">
-                        <ApproveList />
+                        <Verifikasi />
                     </Route>
                     <Route path="/approved/:approvedId">
                         <Approve />
@@ -81,6 +83,9 @@ function App() {
                     </Route>
                     <Route exact path="/scan">
                         <Timbang />
+                    </Route>
+                    <Route exact path="/profil">
+                        <User />
                     </Route>
                 </Switch>
             </div>

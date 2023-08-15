@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default function Home() {
   const [userProfile, setUserProfile] = useState(null);
+  const [datas, setData] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/profile', {
@@ -21,6 +22,18 @@ export default function Home() {
     })
   }, [])
 
+  useEffect(() => { 
+    if (localStorage.getItem('token') === null) {
+      window.location.href = '/login'
+    }
+  }, [])
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/months").then((response) => {
+        setData(response.data);
+    });
+}, []);
+
 
 
 
@@ -30,7 +43,6 @@ export default function Home() {
       <h2>Dashboard</h2>
       <br></br>
       <FeaturedInfo />
-      <Chart data={userData} title="User Analytics" grid dataKey="Active User"/>
-    </div>
+      <Chart data={datas} title="Data Masuk" grid dataKey="total" />    </div>
   );
 }

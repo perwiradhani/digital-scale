@@ -15,14 +15,14 @@ export default function FeaturedInfo() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/trucks/counts', {
+    axios.get('http://localhost:8000/api/muatans/counts', {
   }).then((res) => {
     setCountTruck(res.data)
   })
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/muatans/counts', {
+    axios.get('http://localhost:8000/api/muatans/valid', {
   }).then((res) => {
     setCountValid(res.data)
   })

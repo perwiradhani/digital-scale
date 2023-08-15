@@ -33,14 +33,14 @@ class TruckController extends Controller
             'plat_nomor' => 'required',
             'jenis_truck' => 'required',
             'beban_kosong' => 'required',
-            'beban_max' => 'required',
+            // 'beban_max' => 'required',
         ]);
 
         $truck = Truck::create([
             'plat_nomor' => $request->plat_nomor,
             'jenis_truck' => $request->jenis_truck,
             'beban_kosong' => $request->beban_kosong,
-            'beban_max' => $request->beban_max,
+            // 'beban_max' => $request->beban_max,
             // 'id_user' => Auth::user()->id,
         ]);
 
@@ -73,7 +73,7 @@ class TruckController extends Controller
             'plat_nomor' => 'required',
             'jenis_truck' => 'required',
             'beban_kosong' => 'required',
-            'beban_max' => 'required',
+            // 'beban_max' => 'required',
         ]);
 
         $truck = Truck::find($id);
@@ -86,7 +86,7 @@ class TruckController extends Controller
             'plat_nomor' => $request->plat_nomor,
             'jenis_truck' => $request->jenis_truck,
             'beban_kosong' => $request->beban_kosong,
-            'beban_max' => $request->beban_max,
+            // 'beban_max' => $request->beban_max,
         ]
         );
         // return response()->json("Data updated");

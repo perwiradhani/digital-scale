@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import Topbar from "../../components/topbar/Topbar";
 import axios from "axios";
 
-export default function VerifList() {
+export default function Verifikasi() {
   // const [data] = useState(productRows);
   const [data, setData] = useState([]);
 
@@ -24,22 +24,22 @@ export default function VerifList() {
 
   const handleCellButtonClick = (id) => {
     Swal.fire({
-      title: 'Verify the data?',
-      text: "You won't be verify this data!",
+      title: 'Approve the data?',
+      text: "You won't approve this data!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Verify',
+      confirmButtonText: 'Approve',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Data has been verified!', '', 'success')
+        Swal.fire('Data has been approved!', '', 'success')
         // history.push("/verif/" + id);
         axios.put(`http://localhost:8000/api/muatan/verif/${id}`, {
-          status: "Sudah Verifikasi",
+          status: "Sudah Approve",
         }).then((response) => {
-          // window.location.href = `/approves`;
+          window.location.href = `/rekaplaporan`;
         });
         // window.location.href = `/approve`;
       }
@@ -79,17 +79,22 @@ export default function VerifList() {
       width: 150,
       className: "productstatus",
       renderCell: (params) => {
-        if (params.row.status === "Sudah Approve" || params.row.status === "Sudah Verifikasi")  {
+        if (params.row.status === "Sudah Approve") {
           return (
             <>
-                <h5 className="approveListBtn">Verified</h5>
+                <h5 className="approveListBtn">Approved</h5>
+            </>
+          );
+        } else if (params.row.status === "Belum Verifikasi") {
+          return (
+            <>
+                <h5 className="rejectedListBtn">Verify First</h5>
             </>
           );
         }
-
         return (
           <>
-              <button className="productstatus" onClick={() => handleCellButtonClick(params.row.id)}>Give Verif</button>
+              <button className="productstatus" onClick={() => handleCellButtonClick(params.row.id)}>Approve</button>
           </>
         );
       },
@@ -99,7 +104,7 @@ export default function VerifList() {
   return (
     <div className="userList">
       <Topbar />
-      <h2>Halaman Verifikasi</h2>
+      <h2>Halaman Approval</h2>
       <br></br>
       <DataGrid
         rows={data}

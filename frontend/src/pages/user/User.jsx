@@ -8,112 +8,146 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import "./user.css";
+// import "pngwing.png" from "frontend\src\components\topbar\assets
+import pngwing from './assets/pngwing.png';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import Topbar from "../../components/topbar/Topbar";
+
 
 export default function User() {
+  const [userInput, setUser] = useState([]);
+  // let { userId } = useParams()
+  let username = localStorage.getItem('username')
+  let role = localStorage.getItem('role')
+  let name = localStorage.getItem('nama')
+  let id = localStorage.getItem('id')
+
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password === confirmPassword) {
+      // Passwords match, perform further actions
+      setPasswordMatch(true);
+      const data = {
+        password: password,
+      };
+  
+      axios.put(`http://localhost:8000/api/password/${id}`, data).then((response) => {
+        // document.getElementById("CATEGORY_FORM").reset();
+        alert(response.data.message);
+        // window.location.replace("/profil");
+        // console.log(response);
+      });
+    } else {
+      // Passwords do not match, show an error message or take appropriate action
+      setPasswordMatch(false);
+    }
+  };
+
+
+  // const handleInput = (e) => {
+  //   e.persist();
+  //   setUser({
+  //     ...userInput,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+
   return (
     <div className="user">
+      <Topbar />
       <div className="userTitleContainer">
-        <h2 className="userTitle">Edit User</h2>
-        <Link to="/newUser">
-          <button className="userAddButton">Create</button>
-        </Link>
+        <h2 className="userTitle">Profil</h2>
       </div>
       <div className="userContainer">
         <div className="userShow">
           <div className="userShowTop">
             <img
-              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={pngwing}
               alt=""
               className="userShowImg"
             />
             <div className="userShowTopTitle">
-              <span className="userShowUsername">Anna Becker</span>
-              <span className="userShowUserTitle">Software Engineer</span>
+              <span className="userShowUsername">{name}</span>
+              <span className="userShowUserTitle">{role}</span>
             </div>
           </div>
           <div className="userShowBottom">
             <span className="userShowTitle">Account Details</span>
             <div className="userShowInfo">
               <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99</span>
+              <span className="userShowInfoTitle">{username}</span>
             </div>
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">10.11.2000</span>
             </div>
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
+              <span className="userShowInfoTitle">+62 878 8853 6344</span>
             </div>
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+              <span className="userShowInfoTitle">admin@admin.com</span>
             </div>
             <div className="userShowInfo">
               <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
+              <span className="userShowInfoTitle">Madiun | Jawa Timur</span>
             </div>
           </div>
         </div>
+
+
         <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
+          <span className="userUpdateTitle">Edit Password</span>
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Username</label>
+                <label>New Password</label>
                 <input
-                  type="text"
-                  placeholder="annabeck99"
+                  type="password"
+                  id="password"
                   className="userUpdateInput"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Full Name</label>
+                <label>Confirm Password</label>
                 <input
-                  type="text"
-                  placeholder="Anna Becker"
+                  type="password"
+                  id="confirmPassword"
                   className="userUpdateInput"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  // name="password"
                 />
               </div>
+              {!passwordMatch && <p className="error">Passwords don't match</p>}
+              <br />
               <div className="userUpdateItem">
-                <label>Email</label>
-                <input
-                  type="text"
-                  placeholder="annabeck99@gmail.com"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  placeholder="+1 123 456 67"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
-                  className="userUpdateInput"
-                />
-              </div>
+              <button className="userUpdateButton" onClick={handleSubmit}>
+                Update
+              </button>
+            </div>
             </div>
             <div className="userUpdateRight">
-              <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
-                />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
-              </div>
-              <button className="userUpdateButton">Update</button>
             </div>
           </form>
         </div>

@@ -10,10 +10,10 @@ export default function WidgetLg() {
 
 
   const exportToCSV = () => {
-    axios.get('http://localhost:8000/api/export/csv')
+    axios.get('/export')
       .then(response => {
         const blob = new Blob([response.data], { type: 'text/csv' });
-        saveAs(blob, 'data_muatan.csv');
+        saveAs(blob, 'data_export.csv');
       })
       .catch(error => {
         console.error('Error exporting data:', error);
@@ -26,11 +26,15 @@ export default function WidgetLg() {
   }
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/muatan/show')
+    fetch('http://localhost:8000/api/muatan')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error(error));
   }, []);
+
+
+
+
 
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
@@ -54,7 +58,6 @@ export default function WidgetLg() {
         </tr>
         </thead>
         
-      
         <tbody>
         {data.map((muatan) => (
           <tr className="widgetLgTr">
@@ -64,7 +67,7 @@ export default function WidgetLg() {
           {/* <td className="widgetLgJam">{muatan.jam}</td> */}
           <td className="widgetLgPlatNomor">{muatan.plat}</td>
           <td className="widgetLgBerat">{muatan.beban_seluruh}</td>
-          <td className={muatan.status === 'Sudah Approve' ? 'widgetLgStatus approveListBtn' : 'widgetLgStatus rejectedListBtn'}
+          <td className={muatan.status=== 'Sudah Verifikasi' ? 'widgetLgStatus approveListBtn' : 'widgetLgStatus rejectedListBtn'}
           >
             {/* <Button type="Approved" />
              */}

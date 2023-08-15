@@ -11,6 +11,8 @@ import {
   Camera,
   LocalAirportOutlined,
   AirplanemodeActive,
+  VerifiedUser,
+  SupervisedUserCircle,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import logo from "./logo.png"
@@ -26,16 +28,12 @@ function Sidebar() {
     setActiveItem(item);
   };
 
-  // useEffect(() => {
-  //   const role = localStorage.getItem('role')
-  //   if (role == 'Admin') {
-  //     setActiveSidebar(true)
-  //   }
-  // }, [])
+  let role = localStorage.getItem('role')
 
   return (
     <div className="sidebar">
-      <div className="sidebarWrapper">
+      {role === 'Admin' && (
+        <div className="sidebarWrapper">
         <div className="sidebarMenu">
           <ul className="sidebarList">
             <Link to="/" className="link">
@@ -47,8 +45,6 @@ function Sidebar() {
             </li>
             </Link>
           </ul>
-        {/* </div>
-        <div className="sidebarMenu"> */}
           <ul className="sidebarList">
             <Link to="/users" className="link">
             <li className={activeItem === 'user' ? 'sidebarListItem active' : ''}
@@ -57,6 +53,32 @@ function Sidebar() {
                 <PermIdentity className="sidebarIcon" />
                 Data User
               </li>
+            </Link>
+          </ul>
+          <ul className="sidebarList">
+            <Link to="/profil" className="link">
+            <li className={activeItem === 'profil' ? 'sidebarListItem active' : ''}
+            onClick={() => handleItemClick('profil')}
+            >
+                <SupervisedUserCircle className="sidebarIcon" />
+                Profil
+              </li>
+            </Link>
+          </ul>
+        </div>
+        </div>
+      )}
+      {role === 'Petugas' && (
+        <div className="sidebarWrapper">
+        <div className="sidebarMenu">
+          <ul className="sidebarList">
+            <Link to="/" className="link">
+            <li className={activeItem === 'dashboard' ? 'sidebarListItem active' : ''}
+            onClick={() => handleItemClick('dashboard')}
+            >
+              <Dashboard className="sidebarIcon" />
+              Dashboard
+            </li>
             </Link>
           </ul>
           <ul className="sidebarList">
@@ -69,8 +91,6 @@ function Sidebar() {
               </li>
             </Link>
           </ul>
-        {/* </div>
-        <div className="sidebarMenu"> */}
           <ul className="sidebarList">
             <Link to="/scan" className="link">
             <li className={activeItem === 'scan' ? 'sidebarListItem active' : ''}
@@ -81,40 +101,6 @@ function Sidebar() {
               </li>
             </Link>
           </ul>
-          {/* <ul className="sidebarList">
-            <Link to="/" className="link">
-              <li className="sidebarListItem">
-                <AirplanemodeActive className="sidebarIcon" />
-                Muatan
-              </li>
-            </Link>
-          </ul> */}
-          {/* <ul className="sidebarList">
-            <Link to="/inputmanual" className="link">
-              <li className="sidebarListItem">
-                <Input className="sidebarIcon" />
-                Input Manual
-              </li>
-            </Link>
-          </ul> */}
-          {/* <ul>
-            <Link to="/" className="link">
-              <li className="sidebarListItem">
-                <AirplanemodeActive className="sidebarIcon" />
-                Muatan
-              </li>
-            </Link>
-          </ul>
-          <ul>
-            <Link to="/inputmanual" className="link">
-              <li className="sidebarListItem">
-                <Input className="sidebarIcon" />
-                Input Manual
-              </li>
-            </Link>
-          </ul> */}
-        {/* </div>
-        <div className="sidebarMenu"> */}
           <ul className="sidebarList">
             <Link to="/verifikasi" className="link">
             <li className={activeItem === 'verif' ? 'sidebarListItem active' : ''}
@@ -125,18 +111,16 @@ function Sidebar() {
               </li>
             </Link>
           </ul>
-        {/* </div>
-        <div className="sidebarMenu"> */}
-          {/* <ul className="sidebarList">
+          <ul className="sidebarList">
             <Link to="/approves" className="link">
-              <li className="sidebarListItem">
+            <li className={activeItem === 'approve' ? 'sidebarListItem active' : ''}
+            onClick={() => handleItemClick('approve')}
+            >
                 <DoneAll className="sidebarIcon" />
                 Approval
               </li>
             </Link>
-          </ul> */}
-        {/* </div>
-        <div className="sidebarMenu"> */}
+          </ul>
           <ul className="sidebarList">
             <Link to="/rekaplaporan" className="link">
             <li className={activeItem === 'rekap' ? 'sidebarListItem active' : ''}
@@ -147,8 +131,131 @@ function Sidebar() {
               </li>
             </Link>
           </ul>
+          <ul className="sidebarList">
+              <Link to="/profil" className="link">
+              <li className={activeItem === 'profil' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('profil')}
+              >
+                  <SupervisedUserCircle className="sidebarIcon" />
+                  Profil
+                </li>
+              </Link>
+            </ul>
+        </div>
+        </div>
+      )}
+      {role === 'Owner'  && (
+        <div className="sidebarWrapper">
+          <div className="sidebarMenu">
+            <ul className="sidebarList">
+              <Link to="/" className="link">
+              <li className={activeItem === 'dashboard' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('dashboard')}
+              >
+                <Dashboard className="sidebarIcon" />
+                Dashboard
+              </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+            <Link to="/rekaplaporan" className="link">
+            <li className={activeItem === 'rekap' ? 'sidebarListItem active' : ''}
+            onClick={() => handleItemClick('rekap')}
+            >
+                <PermIdentity className="sidebarIcon" />
+                Hasil Rekap
+              </li>
+            </Link>
+          </ul>
+            <ul className="sidebarList">
+              <Link to="/profil" className="link">
+              <li className={activeItem === 'profil' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('profil')}
+              >
+                  <SupervisedUserCircle className="sidebarIcon" />
+                  Profil
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </div>
+        )}
+        {(role === 'Koordinator' || role === 'Supervisor') && (
+          <div className="sidebarWrapper">
+          <div className="sidebarMenu">
+            <ul className="sidebarList">
+              <Link to="/" className="link">
+              <li className={activeItem === 'dashboard' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('dashboard')}
+              >
+                <Dashboard className="sidebarIcon" />
+                Dashboard
+              </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+              <Link to="/trucks" className="link">
+              <li className={activeItem === 'truk' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('truk')}
+              >
+                  <Category className="sidebarIcon" />
+                  Data Truck
+                </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+              <Link to="/scan" className="link">
+              <li className={activeItem === 'scan' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('scan')}
+              >
+                  <Camera className="sidebarIcon" />
+                  Scan
+                </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+              <Link to="/verifikasi" className="link">
+              <li className={activeItem === 'verif' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('verif')}
+              >
+                  <Done className="sidebarIcon" />
+                  Verifikasi
+                </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+              <Link to="/approves" className="link">
+              <li className={activeItem === 'approve' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('approve')}
+              >
+                  <DoneAll className="sidebarIcon" />
+                  Approval
+                </li>
+              </Link>
+            </ul>
+            <ul className="sidebarList">
+              <Link to="/rekaplaporan" className="link">
+              <li className={activeItem === 'rekap' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('rekap')}
+              >
+                <PermIdentity className="sidebarIcon" />
+                Hasil Rekap
+              </li>
+            </Link>
+          </ul>
+          <ul className="sidebarList">
+              <Link to="/profil" className="link">
+              <li className={activeItem === 'profil' ? 'sidebarListItem active' : ''}
+              onClick={() => handleItemClick('profil')}
+              >
+                  <SupervisedUserCircle className="sidebarIcon" />
+                  Profil
+                </li>
+              </Link>
+            </ul>
         </div>
       </div>
+      )}
     </div>
   );
       

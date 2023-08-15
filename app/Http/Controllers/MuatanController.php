@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateMuatanRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\MuatanResource;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;  
 
 class MuatanController extends Controller
 {
@@ -48,9 +49,12 @@ class MuatanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Muatan $muatan)
+    public function show()
     {
-        //
+        $db = 'muatans';
+        // get where status = sudah approve
+        $muatan = DB::table($db)->where('status', 'Sudah Approve')->get();
+        return response()->json($muatan);
     }
 
     /**
@@ -158,5 +162,21 @@ class MuatanController extends Controller
                 'result' => $result
             ], 200
         );
+    }
+
+    public function exportCsv(Request $request)
+    {
+        $muatan = Muatan::all();
+        $filename = "muatan.csv";
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, array('id', 'Plat Nomor', 'Beban Seluruh', 'Waktu', 'Status'));
+        foreach ($muatan as $row) {
+            fputcsv($handle, array($row['id'], $row['plat'], $row['beban_seluruh'], $row['waktu'], $row['status']));
+        }
+        fclose($handle);
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+        return response()->download($filename, 'muatan.csv', $headers);
     }
 }

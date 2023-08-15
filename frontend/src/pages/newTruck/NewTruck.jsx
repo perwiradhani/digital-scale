@@ -15,6 +15,15 @@ export default function NewUser() {
     beban_max: '',
   });
 
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/options").then((response) => {
+      setOptions(response.data.data);
+      console.log(response.data.data);
+    });
+  }, []);
+
   const handleInput = (e) => {
     e.persist();
     setUser({
@@ -30,7 +39,7 @@ export default function NewUser() {
       plat_nomor: userInput.plat_nomor,
       jenis_truck: userInput.jenis_truck,
       beban_kosong: userInput.beban_kosong,
-      beban_max: userInput.beban_max,
+      // beban_max: userInput.beban_max,
     };
 
     axios.post("http://localhost:8000/api/truck", data).then((response) => {
@@ -74,10 +83,13 @@ export default function NewUser() {
           <label>Beban Kosong</label>
           <input type="number" name="beban_kosong" onChange={handleInput} value={userInput.beban_kosong} />
         </div>
-        <div className="newUserItem">
+        {/* <div className="newUserItem">
           <label>Beban Max</label>
           <input type="number" name="beban_max" onChange={handleInput} value={userInput.beban_max} />
-        </div>
+        </div> */}
+        {/* <div> */}
+      {/* <h1>Select Dropdown</h1> */}
+    {/* </div> */}
         {/* <div className="newUserItem">
           <label>Gender</label>
           <div className="newUserGender">

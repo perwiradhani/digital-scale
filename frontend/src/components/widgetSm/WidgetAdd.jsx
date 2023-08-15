@@ -11,11 +11,12 @@ const CameraOCR = () => {
     const canvasRef = useRef(null);
     const [ocrResult, setOCRResult] = useState("");
     const [capturedImage, setCapturedImage] = useState(null);
-    const [input, setInput] = useState({
-        berat : '',
-        plat : '',
-
-    });
+    const [userInput, setUser] = useState({
+        plat_nomor: '',
+        jenis_truck: '',
+        beban_kosong: '',
+        beban_max: '',
+      });
     const [options, setOptions] = useState([]);
 
     // useEffect(() => {
@@ -29,25 +30,15 @@ const CameraOCR = () => {
 
     const handleInput = (e) => {
         e.persist();
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value,
+        setUser({
+          ...userInput,
+          [e.target.name]: e.target.value,
         });
-    };
+      };
 
     useEffect(() => {
         startCamera();
-        // fetch('http://localhost:8000/api/options')
-        // .then(response => response.json())
-        // .then(data => setOptions(data.options))
-        // .catch(error => console.log(error));
-
         return () => {
-            // axios.get('http://localhost:8000/api/options')
-            // .then((res) => {
-            //     setOptions(res.data.options);
-            // }
-            // );
             stopCamera();
         };
     }, []);
@@ -135,25 +126,18 @@ const CameraOCR = () => {
         e.preventDefault();
 
         const data = {
-            plat_nomor: input.plat,
-            berat: input.berat,
-            // tanggal: currentDate,
-            // jam: time.toLocaleTimeString(),
-            
-            // gambar: capturedImage,
-        };
-
-        axios.post("http://localhost:8000/api/muatan/scale", data).then((res) => {
-            alert(res.data.message);
-            window.location.href = "/verifikasi";
-        // Swal.fire({
-        //     position: "top-bottom",
-        //     icon: "success",
-        //     title: res.data.message,
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        // });
-        });
+            plat_nomor: userInput.plat_nomor,
+            jenis_truck: userInput.jenis_truck,
+            beban_kosong: userInput.beban_kosong,
+            // beban_max: userInput.beban_max,
+          };
+      
+          axios.post("http://localhost:8000/api/truck", data).then((response) => {
+            // document.getElementById("CATEGORY_FORM").reset();
+            alert(response.data.message);
+            window.location.replace("/trucks");
+            console.log(response);
+          });
     };
 
     return (
@@ -197,8 +181,15 @@ const CameraOCR = () => {
                         </div>
                         <div className="inputManualUpdateItem">
                             <label>Plat Nomor</label>
-                            <input className="inputManualUpdateInput" value={input.plat} type="text" name="plat" id="" onChange={handleInput} />
-                            {/* <>{ocrResult}</> */}
+                            <input className="inputManualUpdateInput" type="text" name="plat_nomor" id="" onChange={handleInput} value={userInput.plat_nomor} />
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Jenis Truckr</label>
+                            <input className="inputManualUpdateInput" type="text" name="jenis_truck" id="" onChange={handleInput} value={userInput.jenis_truck} />
+                        </div>
+                        <div className="inputManualUpdateItem">
+                            <label>Beban Kosong</label>
+                            <input className="inputManualUpdateInput" placeholder="Berat" type="number" name="beban_kosong" id="" onChange={handleInput} value={userInput.beban_kosong} />
                         </div>
                         <div className="inputManualUpdateItem">
                             <label>Tanggal</label>
@@ -207,17 +198,6 @@ const CameraOCR = () => {
                         <div className="inputManualUpdateItem">
                             <label>Jam</label>
                             <>{time.toLocaleTimeString()}</>
-                        </div>
-                        <div className="inputManualUpdateItem">
-                            <label>Berat</label>
-                            <input className="inputManualUpdateInput" placeholder="Berat" type="number" name="berat" id="" onChange={handleInput} value={input.berat} />
-                            {/* <>90 Kg</> */}
-                        </div>
-                        <div className="inputManualUpdateItem">
-                            <label>Gambar</label>
-                            {capturedImage && (
-                                <img src={capturedImage} alt="Captured" />
-                            )}
                         </div>
                     </div>
                     <div className="inputManualUpdateRight">

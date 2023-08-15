@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Truck;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\TrucksResource;
 
 class AuthenticationController extends Controller
 {
@@ -96,7 +98,7 @@ class AuthenticationController extends Controller
         $request->validate(
             [
                 'username' => 'required',
-                'password' => 'required',
+                // 'password' => 'required',
                 'nama_user' => 'required',
                 'role' => 'required'
             ]
@@ -112,7 +114,7 @@ class AuthenticationController extends Controller
 
         $user->update([
             'username' => $request->username,
-            'password' => Hash::make($request->password),
+            // 'password' => Hash::make($request->password),
             'nama_user' => $request->nama_user,
             'role' => $request->role
         ]);
@@ -150,10 +152,9 @@ class AuthenticationController extends Controller
         // $truck = Truck::all()->count();
         // $truck = Truck::count();
         // return response()->json($truck, 200);
-        $tableName = 'trucks';
-        $count = DB::table($tableName)->count();
-
-        return response()->json($count, 200);
+        $tableName = 'muatans';
+        $muatan = DB::table($tableName)->where('status', 'Sudah Verifikasi')->count();
+        return response()->json($muatan, 200);
     }
 
     public function getMuatanCount()
@@ -166,4 +167,60 @@ class AuthenticationController extends Controller
 
         return response()->json($count, 200);
     }
+
+    public function getValid()
+    {
+        $tableName = 'muatans';
+        $muatan = DB::table($tableName)->where('status', 'Sudah Approve')->count();
+        return response()->json($muatan, 200);
+    }
+
+    public function getDropdown()
+    {
+        // $options = DB::table('trucks')->pluck('plat_nomor', 'id');
+        // select option from model Truck with pluck
+        // $options = Truck::pluck('plat_nomor', 'id');
+        $options = Truck::select('plat_nomor', 'id')->get();
+        
+        // return response()->json(['options' => $options]);
+        return TrucksResource::collection($options);
+    }
+
+    public function getMonth()
+    {
+        // $results = DB::table('muatans')
+        //      ->select(DB::raw('MONTHNAME(waktu) as month'))
+        //      ->get();
+        // return response()->json([
+        //     'results' => $results
+        // ], 200);
+
+        $data = DB::table('muatans')
+        ->select(DB::raw('MONTHNAME(waktu) as month'), DB::raw('COUNT(plat) as total'))
+        ->groupBy(DB::raw('MONTHNAME(waktu)'))
+        ->get();
+
+    return response()->json($data);
+    }
+
+    public function updatePw(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'password' => 'required'
+            ]
+        );
+
+        $user = User::find($id);
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'user' => $user,
+            'message' => 'Password updated'
+        ], 200);
+    }
+
+
 }

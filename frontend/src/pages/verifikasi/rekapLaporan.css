@@ -1,0 +1,8 @@
+.rekapLaporan{
+    flex: 4;
+}
+
+.rekapLaporanWidgets{
+    display: flex;
+    margin: 20px;
+}

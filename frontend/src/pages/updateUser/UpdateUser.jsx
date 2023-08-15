@@ -37,7 +37,6 @@ export default function NewUser() {
     };
 
     await axios.put(`http://localhost:8000/api/user/${userId}`, data).then((response) => {
-      // document.getElementById("CATEGORY_FORM").reset();
       alert(response.data.message);
       window.location.replace("/users");
       console.log(response);
